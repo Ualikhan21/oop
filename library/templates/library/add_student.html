@@ -1,0 +1,12 @@
+<!-- add_student.html -->
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2>Add New Student</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'student_list' %}">Back to list</a>
+{% endblock %}

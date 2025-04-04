@@ -1,0 +1,36 @@
+<!-- assign_book.html -->
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2>Assign Book to {{ student }}</h2>
+
+{% if form.book.field.queryset.count == 0 %}
+    <div class="alert alert-warning">
+        No books available for this student.
+        {% if student.age and student.age < 18 %}
+            Some books may be restricted to students 18+.
+        {% endif %}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        {{ form.book.label_tag }}
+        {{ form.book }}
+        {% if form.book.errors %}
+            <div class="text-danger">{{ form.book.errors }}</div>
+        {% endif %}
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Assign</button>
+</form>
+
+{% if student.age and student.age < 18 %}
+    <div class="mt-3 alert alert-info">
+        <i class="fas fa-info-circle"></i> 
+        This student is under 18. Only books marked as available for all ages are shown.
+    </div>
+{% endif %}
+{% endblock %}

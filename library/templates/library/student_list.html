@@ -1,0 +1,29 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-users me-2"></i>Student List</h2>
+    <a href="{% url 'add_student' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-1"></i> Add Student
+    </a>
+</div>
+
+<div class="row">
+    {% for student in students %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ student.name }} {{ student.surname }} {{ student.age }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ student.group }}</h6>
+                <p class="card-text">
+                    Books borrowed: {{ student.borrowed_books.count }}
+                </p>
+                <a href="{% url 'student_detail' student.id %}" class="btn btn-sm btn-primary">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
